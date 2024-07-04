@@ -15,14 +15,16 @@ const WeatherCard = ({ data, isLocalWeather }) => {
   const toggleDetails = () => {
     setShowDetails(!showDetails);
 
-    // Check if city data is already in visitedCities
-    const cityIds = new Set(visitedCities.map((city) => city.id));
-    if (!cityIds.has(id)) {
-      // Add to visitedCities if details are shown
-      if (!showDetails) {
+    // Add to visitedCities if details are shown and city is not already in visitedCities
+    if (!showDetails) {
+      const cityIds = new Set(visitedCities.map((city) => city.id));
+      if (!cityIds.has(id)) {
         const newCity = { id, name, sys, weather, main, wind };
-        setVisitedCities((prev) => [...prev, newCity]);
-        localStorage.setItem('visitedCities', JSON.stringify([...visitedCities, newCity]));
+        setVisitedCities((prev) => {
+          const updatedCities = [...prev, newCity];
+          localStorage.setItem('visitedCities', JSON.stringify(updatedCities));
+          return updatedCities;
+        });
       }
     }
   };
