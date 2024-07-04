@@ -1,0 +1,15 @@
+// atoms/jotai.js
+
+import { atom } from 'jotai';
+
+// Initialize visitedCities based on localStorage if available
+const initialVisitedCities = typeof window !== 'undefined'
+  ? JSON.parse(localStorage.getItem('visitedCities') || '[]')
+  : [];
+
+export const visitedCitiesAtom = atom(initialVisitedCities);
+
+// Update localStorage whenever visitedCitiesAtom changes
+export const updateLocalStorage = (newValue) => {
+  localStorage.setItem('visitedCities', JSON.stringify(newValue));
+};
