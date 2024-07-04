@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { visitedCitiesAtom } from '../pages/atoms/jotai';
 
 const WeatherCard = ({ data, isLocalWeather }) => {
   if (!data || !data.sys || !data.main || !data.weather) {
+    console.log("Incomplete data:", data);
     return null;
   }
 
@@ -12,10 +13,13 @@ const WeatherCard = ({ data, isLocalWeather }) => {
   const [visitedCities, setVisitedCities] = useAtom(visitedCitiesAtom);
   const [isCelsius, setIsCelsius] = useState(true); // Default to Celsius
 
+  useEffect(() => {
+    console.log("Full data object:", data);
+  }, [data]);
+
   const toggleDetails = () => {
     setShowDetails(!showDetails);
 
-    // Add to visitedCities if details are shown and city is not already in visitedCities
     if (!showDetails) {
       const cityIds = new Set(visitedCities.map((city) => city.id));
       if (!cityIds.has(id)) {
@@ -29,17 +33,21 @@ const WeatherCard = ({ data, isLocalWeather }) => {
     }
   };
 
-  const convertToFahrenheit = (celsius) => {
-    return (celsius * 9 / 5) + 32;
-  };
+  const convertToFahrenheit = (celsius) => (celsius * 9 / 5) + 32;
 
-  const formatTemperature = (temperature) => {
-    return parseFloat(temperature.toFixed(1)).toString();
-  };
+  const formatTemperature = (temperature) => parseFloat(temperature.toFixed(1)).toString();
 
   const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (timestamp && typeof timestamp === 'number') {
+      const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true, // Change to false if you want 24-hour format
+        timeZoneName: 'short'
+      });
+    }
+    return "Invalid Date";
   };
 
   const handleTemperatureToggle = () => {
@@ -72,7 +80,7 @@ const WeatherCard = ({ data, isLocalWeather }) => {
               <p className="card-text">Humidity: {main.humidity}%</p>
               <p className="card-text">Pressure: {main.pressure} hPa</p>
               {wind && <p className="card-text">Wind Speed: {wind.speed} m/s</p>}
-              {sys && (
+              {sys && sys.sunrise && sys.sunset && (
                 <>
                   <p className="card-text">Sunrise: {formatTime(sys.sunrise)}</p>
                   <p className="card-text">Sunset: {formatTime(sys.sunset)}</p>
@@ -85,5 +93,6 @@ const WeatherCard = ({ data, isLocalWeather }) => {
     </div>
   );
 };
+
 
 export default WeatherCard;
