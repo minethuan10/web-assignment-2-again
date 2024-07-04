@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { fetchWeatherByCoords } from './api/weatherAPI';
-import WeatherCard from './components/WeatherCard';
+import WeatherCard from '@/components/WeatherCard';
 import { useAtom } from 'jotai';
 import { visitedCitiesAtom, updateLocalStorage } from './atoms/jotai';
 

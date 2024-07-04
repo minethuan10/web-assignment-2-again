@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { fetchWeatherById } from '../api/weatherAPI'; // Adjust the path as necessary
-import WeatherList from '../components/WeatherList'; // Adjust the path as necessary
+import WeatherList from '@/components/WeatherList'; // Adjust the path as necessary
 import { useAtom } from 'jotai';
 import { visitedCitiesAtom } from '../atoms/jotai'; // Adjust the path as necessary
 

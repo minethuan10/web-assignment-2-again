@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { useAtom } from 'jotai';
-import { visitedCitiesAtom } from '../atoms/jotai';
+import { visitedCitiesAtom } from '../pages/atoms/jotai';
 
 const NavigationBar = () => {
   const [searchId, setSearchId] = useState('');

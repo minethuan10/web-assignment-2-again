@@ -1,7 +1,7 @@
 // components/PreviouslyViewedCities.js
 
 import { useAtom } from 'jotai';
-import { visitedCitiesAtom } from '../atoms/jotai'; // Adjust the path as necessary
+import { visitedCitiesAtom } from '../pages/atoms/jotai'; // Adjust the path as necessary
 
 const PreviouslyViewedCities = () => {
   const [visitedCities] = useAtom(visitedCitiesAtom);

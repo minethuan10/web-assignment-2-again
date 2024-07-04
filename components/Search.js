@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchWeatherByQuery } from '../api/weatherAPI';
+import { fetchWeatherByQuery } from '../pages/api/weatherAPI';
 import WeatherList from './WeatherList';
 import Pagination from './Pagination';
 

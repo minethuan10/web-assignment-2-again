@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAtom } from 'jotai';
-import { visitedCitiesAtom } from '../atoms/jotai';
+import { visitedCitiesAtom } from '../pages/atoms/jotai';
 
 const WeatherCard = ({ data, isLocalWeather }) => {
   if (!data || !data.sys || !data.main || !data.weather) {
